@@ -1,6 +1,6 @@
 using System;
 
-namespace tap_n_nap.Models
+namespace TapNap.Models
 {
     public class ErrorViewModel
     {
