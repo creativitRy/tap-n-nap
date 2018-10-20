@@ -16,10 +16,6 @@ namespace TapNap.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                services.AddDbContext<TapNapContext>(options =>
-                    options.UseSqlServer(
-                        context.Configuration.GetConnectionString("TapNapContextConnection")));
-
                 services.AddDefaultIdentity<TapNapUser>()
                     .AddEntityFrameworkStores<TapNapContext>();
             });
