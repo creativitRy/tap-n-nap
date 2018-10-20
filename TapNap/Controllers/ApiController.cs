@@ -20,7 +20,12 @@ namespace TapNap.Controllers
         public async Task<JsonResult> GetBeds()
         {
             var data = await _context.Beds
-                .Select(b => new {id = b.BedID, center = new {lat = b.Latitude, lng = b.Longitude}}).ToListAsync();
+                .Select(b => new
+                {
+                    id = b.BedID,
+                    center = new {lat = b.Latitude, lng = b.Longitude}
+                })
+                .ToListAsync();
             return Json(data);
         }
 
@@ -28,9 +33,18 @@ namespace TapNap.Controllers
         {
             if (id == null)
                 return NotFound();
-
-            // todo
-            var bed = await _context.Beds.Where(b => b.BedID == id).Select(b => new { }).FirstOrDefaultAsync();
+            
+            var bed = await _context.Beds
+                .Include(b => b.BedRatings)
+                .Include(b => b.Pictures)
+                .Where(b => b.BedID == id).Select(b => new
+                {
+                    pictures = b.Pictures.Select(p => p.Src),
+                    rating = b.BedRatings.Select(r => r.Rating).Average(), // rating needed
+                    price = b.PricePerHour,
+                    address = b.Address,
+                    description = b.Description
+                }).FirstOrDefaultAsync();
             if (bed == null)
                 return NotFound();
 
