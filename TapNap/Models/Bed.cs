@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,6 +19,7 @@ namespace TapNap.Models
 
         public string Description { get; set; }
         
+        [Column(TypeName = "decimal(7, 2)")]
         public decimal PricePerHour { get; set; }
 
         public IEnumerable<BedRating> BedRatings { get; set; }

@@ -12,7 +12,7 @@ namespace TapNap.Areas.Identity.Data
         public bool IsRenter { get; set; }
 
         public int SumOfRatings { get; set; }
-        public int numRatings { get; set; }
+        public int NumRatings { get; set; }
 
         public IEnumerable<Rented> Renteds { get; set; }
 

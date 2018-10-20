@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TapNap.Models;
 
 namespace TapNap
 {
@@ -33,6 +34,7 @@ namespace TapNap
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<TapNapContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
