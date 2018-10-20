@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TapNap.Areas.Identity.Data;
 
@@ -11,6 +6,8 @@ namespace TapNap.Models
 {
     public class TapNapContext : IdentityDbContext<TapNapUser>
     {
+        public DbSet<Bed> Beds { get; set; }
+
         public TapNapContext(DbContextOptions<TapNapContext> options)
             : base(options)
         {

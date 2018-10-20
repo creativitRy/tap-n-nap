@@ -41,8 +41,16 @@ namespace TapNap.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Full name")]
+            public string Name { get; set; }
+
+            [Required]
             [EmailAddress]
             public string Email { get; set; }
+
+            [Display(Name = "Sign up to be a renter")]
+            public bool IsRenter { get; set; }
 
             [Phone]
             [Display(Name = "Phone number")]
@@ -65,7 +73,9 @@ namespace TapNap.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                Name = user.Name,
                 Email = email,
+                IsRenter = user.IsRenter,
                 PhoneNumber = phoneNumber
             };
 
@@ -87,6 +97,11 @@ namespace TapNap.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
+            if (Input.Name != user.Name)
+            {
+                user.Name = Input.Name;
+            }
+
             var email = await _userManager.GetEmailAsync(user);
             if (Input.Email != email)
             {
@@ -96,6 +111,11 @@ namespace TapNap.Areas.Identity.Pages.Account.Manage
                     var userId = await _userManager.GetUserIdAsync(user);
                     throw new InvalidOperationException($"Unexpected error occurred setting email for user with ID '{userId}'.");
                 }
+            }
+
+            if (Input.IsRenter != user.IsRenter)
+            {
+                user.IsRenter = Input.IsRenter;
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
@@ -108,6 +128,8 @@ namespace TapNap.Areas.Identity.Pages.Account.Manage
                     throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
                 }
             }
+
+            await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

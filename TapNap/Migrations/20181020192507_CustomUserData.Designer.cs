@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TapNap.Models;
 
 namespace TapNap.Migrations
 {
     [DbContext(typeof(TapNapContext))]
-    partial class TapNapContextModelSnapshot : ModelSnapshot
+    [Migration("20181020192507_CustomUserData")]
+    partial class CustomUserData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -170,14 +172,10 @@ namespace TapNap.Migrations
 
                     b.Property<string>("SecurityStamp");
 
-                    b.Property<int>("SumOfRatings");
-
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
-
-                    b.Property<int>("numRatings");
 
                     b.HasKey("Id");
 
@@ -190,110 +188,6 @@ namespace TapNap.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("TapNap.Models.Bed", b =>
-                {
-                    b.Property<int>("BedID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .IsRequired();
-
-                    b.Property<string>("Description");
-
-                    b.Property<double>("Latitude");
-
-                    b.Property<double>("Longitude");
-
-                    b.Property<decimal>("PricePerHour");
-
-                    b.HasKey("BedID");
-
-                    b.ToTable("Bed");
-                });
-
-            modelBuilder.Entity("TapNap.Models.BedRating", b =>
-                {
-                    b.Property<int>("BedRatingID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BedID");
-
-                    b.Property<int>("Rating");
-
-                    b.Property<string>("Review");
-
-                    b.HasKey("BedRatingID");
-
-                    b.HasIndex("BedID");
-
-                    b.ToTable("BedRating");
-                });
-
-            modelBuilder.Entity("TapNap.Models.Picture", b =>
-                {
-                    b.Property<int>("PictureID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BedID");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Src")
-                        .IsRequired();
-
-                    b.HasKey("PictureID");
-
-                    b.HasIndex("BedID");
-
-                    b.ToTable("Picture");
-                });
-
-            modelBuilder.Entity("TapNap.Models.Rented", b =>
-                {
-                    b.Property<int>("RentedID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BedID");
-
-                    b.Property<DateTime>("EndTime");
-
-                    b.Property<DateTime>("StartTime");
-
-                    b.Property<string>("UserID")
-                        .IsRequired();
-
-                    b.HasKey("RentedID");
-
-                    b.HasIndex("BedID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("Rented");
-                });
-
-            modelBuilder.Entity("TapNap.Models.TimePeriod", b =>
-                {
-                    b.Property<int>("TimePeriodID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BedID");
-
-                    b.Property<DateTime>("EndTime");
-
-                    b.Property<DateTime>("StartTime");
-
-                    b.HasKey("TimePeriodID");
-
-                    b.HasIndex("BedID");
-
-                    b.ToTable("TimePeriod");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -338,43 +232,6 @@ namespace TapNap.Migrations
                     b.HasOne("TapNap.Areas.Identity.Data.TapNapUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("TapNap.Models.BedRating", b =>
-                {
-                    b.HasOne("TapNap.Models.Bed", "Bed")
-                        .WithMany("BedRatings")
-                        .HasForeignKey("BedID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("TapNap.Models.Picture", b =>
-                {
-                    b.HasOne("TapNap.Models.Bed", "Bed")
-                        .WithMany("Pictures")
-                        .HasForeignKey("BedID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("TapNap.Models.Rented", b =>
-                {
-                    b.HasOne("TapNap.Models.Bed", "Bed")
-                        .WithMany("Renteds")
-                        .HasForeignKey("BedID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("TapNap.Areas.Identity.Data.TapNapUser", "User")
-                        .WithMany("Renteds")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("TapNap.Models.TimePeriod", b =>
-                {
-                    b.HasOne("TapNap.Models.Bed", "Bed")
-                        .WithMany("TimePeriods")
-                        .HasForeignKey("BedID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
