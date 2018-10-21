@@ -37,6 +37,8 @@ namespace TapNap.Models
                     .WithMany(u => u.Renteds)
                     .OnDelete(DeleteBehavior.SetNull);
             });
+
+            builder.Entity<Bed>().HasData(new Bed() {Address = ""});
         }
     }
 }

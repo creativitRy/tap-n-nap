@@ -137,7 +137,7 @@ namespace TapNap.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BedID,Address,Description,PricePerHour")] Bed bed)
+        public async Task<IActionResult> Edit(int id, [Bind("BedID,Address,Description,PricePerHour")] Bed bed, TimePeriod time)
         {
             if (id != bed.BedID)
             {
@@ -149,6 +149,7 @@ namespace TapNap.Controllers
                 try
                 {
                     _context.Update(bed);
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
