@@ -14,6 +14,7 @@ namespace TapNap.Areas.Identity.Data
         public int SumOfRatings { get; set; }
         public int NumRatings { get; set; }
 
+        public IEnumerable<Bed> Beds { get; set; }
         public IEnumerable<Rented> Renteds { get; set; }
 
     }

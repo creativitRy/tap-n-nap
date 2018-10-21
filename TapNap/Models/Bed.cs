@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using TapNap.Areas.Identity.Data;
 
 namespace TapNap.Models
 {
@@ -21,6 +22,10 @@ namespace TapNap.Models
         
         [Column(TypeName = "decimal(7, 2)")]
         public decimal PricePerHour { get; set; }
+        
+        public string UserID { get; set; }
+        [ForeignKey(nameof(UserID))]
+        public TapNapUser User { get; set; }
 
         public IEnumerable<BedRating> BedRatings { get; set; }
         public IEnumerable<TimePeriod> TimePeriods { get; set; }
