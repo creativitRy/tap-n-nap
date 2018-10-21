@@ -1,0 +1,429 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans:400,700|Chivo:400,400i');
+body {
+  margin: 0px;
+  padding: 0px;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  /* touch-action: none; */
+}
+.hide {
+  overflow: hidden;
+  position: relative;
+}
+
+/* Navigation bar */
+.navbar-background {
+  height: 70px;
+  border-bottom: 1px solid grey;
+  border-top: 1px solid lightgrey;
+}
+.navbar-top-segment {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  font-family: 'PT Sans', sans-serif;
+
+  max-width: 1440px;
+  margin-left: calc((100% - 1440px) / 2);
+}
+.navbar-mobile-segment {
+  display: none;
+  overflow: hidden;
+}
+.navigation-mobile-screen {
+  display: none;
+  overflow: hidden;
+}
+.segment {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.segment-item {
+  margin-left: 15px;
+  margin-right: 15px;
+
+  font-size: 16px;
+}
+.add-listing-button {
+  width: 120px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+
+  border-radius: 5px;
+  background: #ff8514;
+
+  transition: all 0.2s;
+  box-shadow: 2px 2px 5px 0px rgba(179,179,179,1);
+  cursor: pointer;
+  margin-left: 0px;
+}
+.add-listing-button:hover {
+  box-shadow: 5px 5px 8px 0px rgba(179,179,179,1);
+  transform: translateY(-5px) translateX(2px);
+}
+
+/* Specific items on the navigation bar */
+.logo {
+  font-size: 32px;
+  margin-right: 24px;
+}
+.searchbar {
+  width: 400px;
+  height: 40px;
+  margin-right: 30px;
+
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  box-shadow: 1px 1px 1px darkgrey;
+
+  padding-left: 20px;
+
+  font-size: 16px;
+  font-family: 'PT Sans', sans-serif;
+}
+
+/* Information about a specific listing */
+.listing-information {
+  margin-left: calc((100% - 500px) / 2);
+  width: 500px;
+  height: 700px;
+
+  margin-top: 200px;
+
+  position: absolute;
+  z-index: 2;
+
+  background: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  box-shadow: 5px -3px 17px 3px rgba(122,122,122,1);
+  transition: all 0.3s;
+}
+.show-listing-information {
+  margin-top: -700px;
+  visibility: visible;
+}
+#listing-exit {
+  position: absolute;
+  cursor: pointer;
+  margin-left: calc(100% - 30px);
+  width: 30px;
+}
+/* Image slider */
+.slider {
+  width: 400px;
+  margin-left: calc((100% - 400px) / 2);
+}
+.slider-image-wrapper {
+  width: 320px;
+  height: 200px;
+  margin-left: calc((100% - 320px) / 2);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 5px;
+  box-shadow: 5px 5px 11px 0px rgba(179,179,179,1);
+  transition: all 0.2s;
+}
+.slider-image-wrapper:hover {
+  box-shadow: 8px 8px 14px 0px rgba(179,179,179,1);
+  cursor: pointer;
+}
+.slider-image {
+  height: 200px;
+  width: 300px;
+}
+/* Listing Information, text */
+.listing-information-text {
+  font-family: 'Chivo', sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 30px;
+  margin-right: 30px;
+  justify-content: center;
+  text-align: center;
+}
+.listing-address {
+  width: 100%;
+  margin-bottom: 20px;
+  color: grey;
+}
+.rating-text {
+  font-size: 20px;
+  width: 100%;
+  margin-bottom: 25px;
+}
+.listing-title {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+.listing-description {
+  width: 400px;
+  font-size: 16px;
+  text-align: left;
+  color: grey;
+  margin-bottom: 25px;
+}
+.listing-pricing {
+  font-size: 15px;
+  color: grey;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.fancy-pricing-text {
+  color: black;
+  font-size: 30px;
+}
+.book-button {
+  width: 180px;
+  height: 50px;
+
+  color: white;
+  font-size: 20px;
+
+  border-radius: 5px;
+  background: #01d113;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.2s;
+  box-shadow: 2px 2px 5px 0px rgba(179,179,179,1);
+}
+.book-button:hover {
+  box-shadow: 5px 5px 11px 0px rgba(179,179,179,1);
+  cursor: pointer;
+  transform: translateY(-3px);
+}
+
+/* Reservation cards */
+.reservations {
+  width: 100%;
+  min-height: calc(100vh - 100px);
+  max-height: calc(100vh - 100px);
+
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: space-around;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+.reservations-title {
+  font-size: 75px;
+  font-family: 'Chivo', sans-serif;
+
+  text-align: left;
+  margin-top: 200px;
+  margin-bottom: 50px;
+}
+.reservation-card {
+  width: 300px;
+  height: 450px;
+
+  border-radius: 10px;
+  border-top: 2px solid grey;
+  border-left: 2px solid grey;
+  box-shadow: 3px 3px 5px 0px rgba(179,179,179,1);
+  transition: all 0.2s;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+
+  font-family: 'Chivo', sans-serif;
+  text-align: center;
+
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 25px;
+}
+.reservation-card:hover {
+  box-shadow: 8px 8px 13px 0px rgba(179,179,179,1);
+}
+.reservation-image {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.reservation-card-address {
+  font-size: 24px;
+}
+.reservation-card-time {
+  font-size: 20px;
+  color: grey;
+}
+.reservation-card-contact {
+  width: 100%;
+  height: 50px;
+  align-self: flex-end;
+
+  background: teal;
+  color: white;
+
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.reservation-card-contact:hover {
+  cursor: pointer;
+}
+
+/* SweetAlert */
+.sweet-font {
+  font-size: 20px;
+  font-family: 'PT Sans', sans-serif;
+}
+
+
+/* Footer */
+.footer {
+  height: 28px;
+  background: #4c4c4c;
+  width: 100%;
+}
+
+
+@media only screen and (max-width: 420px) {
+  /* Navigation bar */
+  .navbar-top-segment {
+    display: none;
+  }
+  .navbar-mobile-segment {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    font-family: 'PT Sans', sans-serif;
+  }
+  #navbar-hamburger {
+    width: 30px;
+    margin-right: 20px;
+    cursor: pointer;
+  }
+  .logo {
+    margin-left: 20px;
+  }
+
+  .navigation-mobile-screen {
+    display: block;
+    position: absolute;
+    z-index: 3;
+    top: 60px;
+    width: 100vw;
+    height: calc(100vh - 60px);
+    font-family: 'PT Sans', sans-serif;
+    background: white;
+    transition: all 0.3s;
+  }
+  .navigation-mobile-screen-side {
+    margin-left: 100vw;
+  }
+  .mobile-nav-first {
+    margin-top: 100px;
+  }
+  .searchbar {
+    width: 300px;
+    height: 40px;
+    margin-right: 0px;
+    /* margin-right: calc((100% - 300px) / 2); */
+    font-size: 16px;
+    font-family: 'PT Sans', sans-serif;
+  }
+  .segment-item {
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 45px;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+
+  /* Information about a specific listing */
+  .listing-information {
+    width: 100vw;
+    height: calc(100vh - 60px);
+    margin-top: 150px;
+    margin-left: 0px;
+    border-radius: 0px;
+    box-shadow: none;
+  }
+  .show-listing-information {
+    margin-top: calc(-100vh + 90px);
+  }
+  /* Image slider */
+  .slider {
+    width: 300px;
+    margin-left: calc((100% - 300px) / 2);
+  }
+  .slider-image-wrapper {
+    width: 225px;
+    height: 150px;
+    margin-left: calc((100% - 225px) / 2);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  .slider-image {
+    height: 133px;
+    width: 200px;
+  }
+  /* Listing Information, text */
+  .listing-address {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .rating-text {
+    font-size: 14px;
+  }
+  .listing-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .listing-description {
+    width: 300px;
+    margin-bottom: 25px;
+    font-size: 13px;
+  }
+  .listing-pricing {
+    font-size: 14px;
+    color: grey;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .reservations-title {
+    font-size: 25px;
+    font-family: 'Chivo', sans-serif;
+    text-align: left;
+    margin-top: 25px;
+    margin-bottom: -10px;
+  }
+}
