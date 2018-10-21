@@ -48,7 +48,7 @@
 <div class="hide" id="hide">
     <div class="navigation-mobile-screen navigation-mobile-screen-side">
         <div class="segment-item mobile-nav-first">
-            <a asp-area="" asp-controller="Home" asp-action="About">Current Naps</a>
+            <a asp-area="" asp-controller="Reservation" asp-action="Index">Current Naps</a>
         </div>
         <!-- <div class="segment-item"><a asp-area="" asp-controller="Home" asp-action="Contact">Perspective</a></div> -->
         <div class="segment-item">
@@ -120,7 +120,7 @@
     </div>
 </div>
 
-<form style="visibility: hidden" action="/offers" method="post" id="add-listing-form">
+<form style="visibility: hidden" action='@Url.Action("Create", "Beds")' method="post" id="add-listing-form">
     <input id="latitude" type="hidden">
     <input id="longitude" type="hidden">
     <input id="title" type="hidden">
@@ -184,7 +184,15 @@
                 document.getElementById("rating").value =
                     Math.floor((Math.random() * 3) + 2) + 0.1 * Math.floor(Math.random() * 11);
 
-                // document.getElementById("add-listing-form").submit();
+                document.getElementById("add-listing-form").submit();
+//                $(function() {
+//                    $('#add-listing-form').submit(function(){
+//                        $.post('http://example.com/upload', function() {
+//                            window.location = 'http://google.com';
+//                        });
+//                        return false;
+//                    });
+//                });
 
                 // TODO: FORM SUBMISSION LOGIC
 
