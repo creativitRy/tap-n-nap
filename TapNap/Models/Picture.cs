@@ -13,7 +13,6 @@ namespace TapNap.Models
         [Required]
         [DataType(DataType.ImageUrl)]
         public string Src { get; set; }
-        public string Description { get; set; }
 
         public int BedID { get; set; }
         public Bed Bed { get; set; }

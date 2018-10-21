@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -16,6 +17,9 @@ namespace TapNap
 {
     public class Startup
     {
+        //this is superbad lol
+        public static string ImgurAPI { get; private set; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -38,6 +42,8 @@ namespace TapNap
             services.AddDbContext<TapNapContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("TapNapContextConnection")));
+
+            ImgurAPI = Configuration["Imgur:clientID"];
 
         }
 
