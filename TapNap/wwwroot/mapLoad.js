@@ -292,8 +292,8 @@ function initMap() {
         }
         console.log(response);
         map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: 30.2849, lng: -97.7341 },
-            zoom: 14,
+            center: { lat: 30.2849, lng: -97.7445 },
+            zoom: 18,
             styles: styleArray,
             mapTypeControlOptions: {
                 mapTypeIds: [],
@@ -457,6 +457,16 @@ function initMap() {
                 console.log(city.id);
                 fetch(url).then(res => res.json())
                     .then((response) => {
+                        console.log(response);
+                        document.getElementById("rateit")['data-rateit-value'] = response.rating;
+                        document.getElementById("rating-text").textContent = "Overall Rating: " + response.rating;
+                        document.getElementById("listing-description").textContent = response.description;
+                        document.getElementById("listing-pricing").textContent = "$" + response.price;
+
+                        document.getElementById("image1").src = response.pictures[0];
+                        document.getElementById("image2").src = response.pictures[1];
+                        $('.slider').slick('refresh');
+
                         document.getElementById("listing-exit").parentElement.classList.add("show-listing-information");
                         // Pan map center to the current map
                         map.panTo(marker.getPosition());
