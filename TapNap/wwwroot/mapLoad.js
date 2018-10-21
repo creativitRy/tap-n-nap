@@ -256,28 +256,45 @@ var styleArray = [
     }
 ];
 
-var citymap = {
-  '1': {
-    center: {lat: 30.2849, lng: -97.7241},
-  },
-  '2': {
-    center: {lat: 30.3149, lng: -97.7741},
-  },
-  '3': {
-    center: {lat: 30.2647, lng: -97.7441},
-  },
-  '4': {
-    center: {lat: 30.2811, lng: -97.6941},
-  },
-  '5': {
-    center: {lat: 30.3001, lng: -97.7382},
-  },
-};
+var citymap = [
+    {
+        center: { lat: 30.2849, lng: -97.7241 },
+        id: '0'
+    },
+    {
+        center: { lat: 30.3149, lng: -97.7741 },
+        id: '0'
+    },
+    {
+        center: { lat: 30.2647, lng: -97.7441 },
+        id: '0'
+    },
+    {
+        center: { lat: 30.2811, lng: -97.6941 },
+        id: '0'
+    },
+    {
+        center: { lat: 30.3001, lng: -97.7382 },
+        id: '0'
+    },
+];
 var markers = [];
 var infoBubbles = [];
 
 
 function initMap() {
+
+    fetch('/Api/GetBeds').then((res) => {
+        return res.json();
+    }).then((response) => {
+        if (response) {
+            citymap = response;
+        }
+        console.log(response);
+    }).catch((error) => {
+        console.log("Error when requesting bed data, " + error)
+    });
+
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 30.2849, lng: -97.7341},
     zoom: 14,
@@ -416,11 +433,11 @@ function initMap() {
 
   // Set the markers for each available bed.
   // Add ID stuff to the addListener function
-  for (let city in citymap) {
+  for (let city of citymap) {
 
     let marker = new google.maps.Marker({
       map: map,
-      position: new google.maps.LatLng(citymap[city].center.lat, citymap[city].center.lng),
+      position: new google.maps.LatLng(city.center.lat, city.center.lng),
       icon: {
         path: 'M256,0c-70.703,0-128,57.313-128,128c0,51.5,30.563,95.563,74.375,115.875L256,512l53.625-268.125 C353.438,223.563,384,179.5,384,128C384,57.313,326.688,0,256,0z M256,192c-35.344,0-64-28.656-64-64s28.656-64,64-64 s64,28.656,64,64S291.344,192,256,192z',
         fillOpacity: 1.0,
@@ -437,12 +454,20 @@ function initMap() {
     marker.addListener('click', function() {
       //Reset other marker styles
 
-      // Make a request, pull up additional information as needed
-      document.getElementById("listing-exit").parentElement.classList.add("show-listing-information");
 
-      // Pan map center to the current map
-      map.panTo(marker.getPosition());
-      // map.panBy(0, -500);
+        // Make a request, pull up additional information as needed
+        let url = `/Api/GetDetails?id=${city.id}`;
+        console.log(city.id);
+        fetch(url).then(res => res.json())
+            .then((response) => {
+                document.getElementById("listing-exit").parentElement.classList.add("show-listing-information");
+                // Pan map center to the current map
+                map.panTo(marker.getPosition());
+                // map.panBy(0, -500);
+            })
+            .catch((error) => {
+                console.error("uh oh error: " + error);
+            });
     });
 
     markers.push(marker);

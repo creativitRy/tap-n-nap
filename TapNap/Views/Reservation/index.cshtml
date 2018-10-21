@@ -1,4 +1,4 @@
-@model List<dynamic>
+@model List<TapNap.Controllers.ReservationController.Reservation>
 @{
     Layout = null;
 }
@@ -222,15 +222,6 @@
                 title: "<span class='sweet-font'>Host's Phone Number</span>",
                 html: "<span class='sweet-font'>" + number + "</span>",
                 confirmButtonText: "Awesome, got it!"
-            });
-
-            fetch('@Url.Action("AddSelf", "Api")' + `?id=${id}`)
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function (myJson) {
-                // Do nothing
-                // console.log(JSON.stringify(myJson));
             });
         }
 

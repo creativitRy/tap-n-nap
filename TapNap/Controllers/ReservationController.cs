@@ -21,6 +21,15 @@ namespace TapNap.Controllers
             _userManager = userManager;
         }
 
+        public class Reservation
+        {
+            public int id { get; set; }
+            public string picture { get; set; }
+            public string address { get; set; }
+            public string time { get; set; }
+            public string phone { get; set; }
+        }
+
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -34,7 +43,8 @@ namespace TapNap.Controllers
                 .Include(r => r.Bed).ThenInclude(b => b.User)
                 .Include(r => r.Bed).ThenInclude(b => b.Pictures)
                 .Where(r => r.UserID == user.Id)
-                .Select(r => new {
+                .Select(r => new Reservation
+                {
                     picture = r.Bed.Pictures.First().Src,
                     address = r.Bed.Address,
                     time = $"{r.StartTime} - {r.EndTime}",
