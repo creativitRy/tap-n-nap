@@ -30,7 +30,7 @@ namespace TapNap.Controllers
                     id = b.BedID,
                     center = new {lat = b.Latitude, lng = b.Longitude}
                 })
-                .ToListAsync();
+                .ToArrayAsync();
             return Json(data);
         }
 

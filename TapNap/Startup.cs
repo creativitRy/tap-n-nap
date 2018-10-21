@@ -45,6 +45,8 @@ namespace TapNap
 
             ImgurAPI = Configuration["Imgur:clientID"];
 
+            services.BuildServiceProvider().GetService<TapNapContext>().Database.Migrate();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
