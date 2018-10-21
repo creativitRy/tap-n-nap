@@ -38,10 +38,15 @@ namespace TapNap
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+                services.AddDbContext<TapNapContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
+            else
+                services.AddDbContext<TapNapContext>(options =>
+                    options.UseSqlServer(
+                        Configuration.GetConnectionString("TapNapContextConnection")));
 
-            services.AddDbContext<TapNapContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("TapNapContextConnection")));
 
             ImgurAPI = Configuration["Imgur:clientID"];
 
