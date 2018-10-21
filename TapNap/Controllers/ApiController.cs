@@ -46,7 +46,7 @@ namespace TapNap.Controllers
                 .Where(b => b.BedID == id).Select(b => new
                 {
                     pictures = b.Pictures.Select(p => p.Src),
-                    rating = b.BedRatings.Select(r => r.Rating).Average(), // at least 1 rating needed
+                    rating = Math.Round(b.BedRatings.Select(r => r.Rating).Average(), 2), // at least 1 rating needed
                     price = b.PricePerHour,
                     address = b.Address,
                     description = b.Description,
