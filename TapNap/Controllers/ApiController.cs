@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TapNap.Areas.Identity.Data;
 using TapNap.Models;
 
 namespace TapNap.Controllers
@@ -11,10 +14,12 @@ namespace TapNap.Controllers
     public class ApiController : Controller
     {
         private readonly TapNapContext _context;
+        private readonly UserManager<TapNapUser> _userManager;
 
-        public ApiController(TapNapContext context)
+        public ApiController(TapNapContext context, UserManager<TapNapUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public async Task<JsonResult> GetBeds()
@@ -35,6 +40,7 @@ namespace TapNap.Controllers
                 return NotFound();
             
             var bed = await _context.Beds
+                .Include(b => b.User)
                 .Include(b => b.BedRatings)
                 .Include(b => b.Pictures)
                 .Where(b => b.BedID == id).Select(b => new
@@ -43,12 +49,53 @@ namespace TapNap.Controllers
                     rating = b.BedRatings.Select(r => r.Rating).Average(), // rating needed
                     price = b.PricePerHour,
                     address = b.Address,
-                    description = b.Description
+                    description = b.Description,
+                    phone = b.User.PhoneNumber
                 }).FirstOrDefaultAsync();
             if (bed == null)
                 return NotFound();
 
             return Json(bed);
+        }
+
+        public async Task<IActionResult> GetReserved()
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var reserved = await _context.Renteds
+                .Include(r => r.Bed).ThenInclude(b => b.User)
+                .Include(r => r.Bed).ThenInclude(b => b.Pictures)
+                .Where(r => r.UserID == user.Id)
+                .Select(r => new{
+                    picture = r.Bed.Pictures.First().Src,
+                    address = r.Bed.Address,
+                    time = $"{r.StartTime} - {r.EndTime}",
+                    phone = r.Bed.User.PhoneNumber
+                })
+                .ToListAsync();
+
+            return Json(reserved);
+        }
+
+        public async Task<IActionResult> GetPosts()
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var posts = await _context.Beds
+                .Select(b => new { })
+                .ToListAsync();
+
+            return Json(posts);
         }
     }
 }

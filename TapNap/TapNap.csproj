@@ -6,6 +6,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20181021043745_FixedForeign.cs" />
+    <Compile Remove="Migrations\20181021043745_FixedForeign.Designer.cs" />
+    <Compile Remove="Migrations\20181021044533_FixedForeign2.cs" />
+    <Compile Remove="Migrations\20181021044533_FixedForeign2.Designer.cs" />
+    <Compile Remove="Migrations\20181021044804_FixedForeign3.cs" />
+    <Compile Remove="Migrations\20181021044804_FixedForeign3.Designer.cs" />
+    <Compile Remove="Migrations\20181021044853_FixedForeign4.cs" />
+    <Compile Remove="Migrations\20181021044853_FixedForeign4.Designer.cs" />
+    <Compile Remove="Migrations\20181021045124_FixedForeign5.cs" />
+    <Compile Remove="Migrations\20181021045124_FixedForeign5.Designer.cs" />
+    <Compile Remove="Migrations\20181021045707_FixedForeign6.cs" />
+    <Compile Remove="Migrations\20181021045707_FixedForeign6.Designer.cs" />
+    <Compile Remove="Migrations\20181021050412_FixedForeign7.cs" />
+    <Compile Remove="Migrations\20181021050412_FixedForeign7.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.5" />
