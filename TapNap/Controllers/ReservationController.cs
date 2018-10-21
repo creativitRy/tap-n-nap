@@ -47,7 +47,7 @@ namespace TapNap.Controllers
                 {
                     picture = r.Bed.Pictures.First().Src,
                     address = r.Bed.Address,
-                    time = $"{r.StartTime} - {r.EndTime}",
+                    time = $"{r.StartTime:MMM dd h:mm tt} - {r.EndTime:MMM dd h:mm tt}",
                     phone = r.Bed.User.PhoneNumber,
                     id = r.Bed.BedID
                 })
