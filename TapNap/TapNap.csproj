@@ -30,7 +30,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
-    <Folder Include="wwwroot\imageAssets\beds\" />
   </ItemGroup>
 
 </Project>
