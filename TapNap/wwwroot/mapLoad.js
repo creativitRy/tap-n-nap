@@ -291,187 +291,188 @@ function initMap() {
             citymap = response;
         }
         console.log(response);
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 30.2849, lng: -97.7341 },
+            zoom: 14,
+            styles: styleArray,
+            mapTypeControlOptions: {
+                mapTypeIds: [],
+            },
+            fullscreenControl: false,
+            streetViewControl: false,
+            zoomControl: false,
+        });
+
+        //custom zoom controls
+        let controlDiv = document.createElement('div');
+        controlDiv.classList.add("map-control-panel");
+
+        let zoomIn = document.createElement('img');
+        zoomIn.style.width = '16px';
+        zoomIn.style.height = '16px';
+        zoomIn.src = "imageAssets/plus.svg";
+        zoomIn.style.cursor = "pointer";
+        //set css here for zoomIn
+        google.maps.event.addDomListener(zoomIn, 'click', function () {
+            map.setZoom(map.getZoom() + 1);
+        })
+
+        let separate = document.createElement('img');
+        separate.src = "imageAssets/separate.svg";
+
+        let zoomOut = document.createElement('img');
+        zoomOut.style.width = '16px';
+        zoomOut.style.height = '16px';
+        zoomOut.src = "imageAssets/minus.svg";
+        zoomOut.style.cursor = "pointer";
+        //set css here for zoomOut
+        google.maps.event.addDomListener(zoomOut, 'click', function () {
+            map.setZoom(map.getZoom() - 1);
+        })
+
+        controlDiv.appendChild(zoomOut);
+        controlDiv.appendChild(separate);
+        controlDiv.appendChild(zoomIn);
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
+
+        // Top google searchbar
+        let input = document.getElementById('searchbar-top');
+        let searchBox = new google.maps.places.SearchBox(input);
+
+        map.addListener('bounds_changed', function () {
+            searchBox.setBounds(map.getBounds());
+        });
+
+        searchBox.addListener('places_changed', function () {
+            var places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+                return;
+            }
+
+            // For each place, get the icon, name and location.
+            bounds = new google.maps.LatLngBounds();
+            places.forEach(function (place) {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+                console.log(place);
+
+                if (changed) {
+                    markers.pop().setMap(null);
+                }
+                // Create a marker for each place.
+                markers.push(new google.maps.Marker({
+                    map: map,
+                    icon: {
+                        path: 'M256,0c-70.703,0-128,57.313-128,128c0,51.5,30.563,95.563,74.375,115.875L256,512l53.625-268.125 C353.438,223.563,384,179.5,384,128C384,57.313,326.688,0,256,0z M256,192c-35.344,0-64-28.656-64-64s28.656-64,64-64 s64,28.656,64,64S291.344,192,256,192z',
+                        fillOpacity: 1.0,
+                        fillColor: 'red',
+                        fillWeight: 1.0,
+                        strokeOpacity: 1.0,
+                        strokeColor: 'white',
+                        strokeWeight: 1.5,
+                        scale: 0.07,
+                    },
+                    title: place.name,
+                    position: place.geometry.location
+                }));
+                changed = true;
+
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+            document.getElementById('searchbar-top').value = "";
+            document.getElementById("listing-exit").parentElement.classList.remove("show-listing-information");
+            document.getElementById('searchbar-top').blur();
+        });
+
+        // Mobile searcbar area
+        let mobileInput = document.getElementById('searchbar-mobile');
+        let mobileSearchBox = new google.maps.places.SearchBox(mobileInput);
+
+        map.addListener('bounds_changed', function () {
+            mobileSearchBox.setBounds(map.getBounds());
+        });
+
+        mobileSearchBox.addListener('places_changed', function () {
+            var places = mobileSearchBox.getPlaces();
+
+            if (places.length == 0) {
+                return;
+            }
+
+            // For each place, get the icon, name and location.
+            var bounds = new google.maps.LatLngBounds();
+            places.forEach(function (place) {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+            document.getElementById('searchbar-mobile').value = "";
+            document.getElementById('searchbar-mobile').blur();
+        });
+
+        // Set the markers for each available bed.
+        // Add ID stuff to the addListener function
+        for (let city of citymap) {
+
+            let marker = new google.maps.Marker({
+                map: map,
+                position: new google.maps.LatLng(city.center.lat, city.center.lng),
+                icon: {
+                    path: 'M256,0c-70.703,0-128,57.313-128,128c0,51.5,30.563,95.563,74.375,115.875L256,512l53.625-268.125 C353.438,223.563,384,179.5,384,128C384,57.313,326.688,0,256,0z M256,192c-35.344,0-64-28.656-64-64s28.656-64,64-64 s64,28.656,64,64S291.344,192,256,192z',
+                    fillOpacity: 1.0,
+                    fillColor: 'black',
+                    fillWeight: 1.0,
+                    strokeOpacity: 1.0,
+                    strokeColor: 'black',
+                    strokeWeight: 1.5,
+                    scale: 0.07,
+                }
+            });
+
+            // When you click the marker
+            marker.addListener('click', function () {
+                //Reset other marker styles
+
+
+                // Make a request, pull up additional information as needed
+                let url = `/Api/GetDetails?id=${city.id}`;
+                console.log(city.id);
+                fetch(url).then(res => res.json())
+                    .then((response) => {
+                        document.getElementById("listing-exit").parentElement.classList.add("show-listing-information");
+                        // Pan map center to the current map
+                        map.panTo(marker.getPosition());
+                        // map.panBy(0, -500);
+                    })
+                    .catch((error) => {
+                        console.error("uh oh error: " + error);
+                    });
+            });
+
+            markers.push(marker);
+        }
+
     }).catch((error) => {
         console.log("Error when requesting bed data, " + error)
     });
 
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 30.2849, lng: -97.7341},
-    zoom: 14,
-    styles: styleArray,
-    mapTypeControlOptions: {
-      mapTypeIds: [],
-    },
-    fullscreenControl: false,
-    streetViewControl: false,
-    zoomControl: false,
-  });
-
-  //custom zoom controls
-  let controlDiv = document.createElement('div');
-  controlDiv.classList.add("map-control-panel");
-
-  let zoomIn = document.createElement('img');
-  zoomIn.style.width = '16px';
-  zoomIn.style.height = '16px';
-  zoomIn.src = "imageAssets/plus.svg";
-  zoomIn.style.cursor = "pointer";
-  //set css here for zoomIn
-  google.maps.event.addDomListener(zoomIn, 'click', function() {
-    map.setZoom(map.getZoom() + 1);
-  })
-
-  let separate = document.createElement('img');
-  separate.src = "imageAssets/separate.svg";
-
-  let zoomOut = document.createElement('img');
-  zoomOut.style.width = '16px';
-  zoomOut.style.height = '16px';
-  zoomOut.src = "imageAssets/minus.svg";
-  zoomOut.style.cursor = "pointer";
-  //set css here for zoomOut
-  google.maps.event.addDomListener(zoomOut, 'click', function() {
-    map.setZoom(map.getZoom() - 1);
-  })
-
-  controlDiv.appendChild(zoomOut);
-  controlDiv.appendChild(separate);
-  controlDiv.appendChild(zoomIn);
-  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
-
-  // Top google searchbar
-  let input = document.getElementById('searchbar-top');
-  let searchBox = new google.maps.places.SearchBox(input);
-
-  map.addListener('bounds_changed', function() {
-    searchBox.setBounds(map.getBounds());
-  });
-
-  searchBox.addListener('places_changed', function() {
-    var places = searchBox.getPlaces();
-
-    if (places.length == 0) {
-      return;
-    }
-
-    // For each place, get the icon, name and location.
-    bounds = new google.maps.LatLngBounds();
-    places.forEach(function(place) {
-      if (!place.geometry) {
-        console.log("Returned place contains no geometry");
-        return;
-        }
-        console.log(place);
-
-      if (changed) {
-        markers.pop().setMap(null);
-      }
-      // Create a marker for each place.
-      markers.push(new google.maps.Marker({
-        map: map,
-        icon: {
-          path: 'M256,0c-70.703,0-128,57.313-128,128c0,51.5,30.563,95.563,74.375,115.875L256,512l53.625-268.125 C353.438,223.563,384,179.5,384,128C384,57.313,326.688,0,256,0z M256,192c-35.344,0-64-28.656-64-64s28.656-64,64-64 s64,28.656,64,64S291.344,192,256,192z',
-          fillOpacity: 1.0,
-          fillColor: 'red',
-          fillWeight: 1.0,
-          strokeOpacity: 1.0,
-          strokeColor: 'white',
-          strokeWeight: 1.5,
-          scale: 0.07,
-        },
-        title: place.name,
-        position: place.geometry.location
-      }));
-      changed = true;
-
-      if (place.geometry.viewport) {
-        // Only geocodes have viewport.
-        bounds.union(place.geometry.viewport);
-      } else {
-        bounds.extend(place.geometry.location);
-      }
-    });
-    map.fitBounds(bounds);
-    document.getElementById('searchbar-top').value = "";
-    document.getElementById("listing-exit").parentElement.classList.remove("show-listing-information");
-    document.getElementById('searchbar-top').blur();
-  });
-
-  // Mobile searcbar area
-  let mobileInput = document.getElementById('searchbar-mobile');
-  let mobileSearchBox = new google.maps.places.SearchBox(mobileInput);
-
-  map.addListener('bounds_changed', function() {
-    mobileSearchBox.setBounds(map.getBounds());
-  });
-
-  mobileSearchBox.addListener('places_changed', function() {
-    var places = mobileSearchBox.getPlaces();
-
-    if (places.length == 0) {
-      return;
-    }
-
-    // For each place, get the icon, name and location.
-    var bounds = new google.maps.LatLngBounds();
-    places.forEach(function(place) {
-      if (!place.geometry) {
-        console.log("Returned place contains no geometry");
-        return;
-      }
-
-      if (place.geometry.viewport) {
-        // Only geocodes have viewport.
-        bounds.union(place.geometry.viewport);
-      } else {
-        bounds.extend(place.geometry.location);
-      }
-    });
-    map.fitBounds(bounds);
-    document.getElementById('searchbar-mobile').value = "";
-    document.getElementById('searchbar-mobile').blur();
-  });
-
-  // Set the markers for each available bed.
-  // Add ID stuff to the addListener function
-  for (let city of citymap) {
-
-    let marker = new google.maps.Marker({
-      map: map,
-      position: new google.maps.LatLng(city.center.lat, city.center.lng),
-      icon: {
-        path: 'M256,0c-70.703,0-128,57.313-128,128c0,51.5,30.563,95.563,74.375,115.875L256,512l53.625-268.125 C353.438,223.563,384,179.5,384,128C384,57.313,326.688,0,256,0z M256,192c-35.344,0-64-28.656-64-64s28.656-64,64-64 s64,28.656,64,64S291.344,192,256,192z',
-        fillOpacity: 1.0,
-        fillColor: 'black',
-        fillWeight: 1.0,
-        strokeOpacity: 1.0,
-        strokeColor: 'black',
-        strokeWeight: 1.5,
-        scale: 0.07,
-      }
-    });
-
-    // When you click the marker
-    marker.addListener('click', function() {
-      //Reset other marker styles
-
-
-        // Make a request, pull up additional information as needed
-        let url = `/Api/GetDetails?id=${city.id}`;
-        console.log(city.id);
-        fetch(url).then(res => res.json())
-            .then((response) => {
-                document.getElementById("listing-exit").parentElement.classList.add("show-listing-information");
-                // Pan map center to the current map
-                map.panTo(marker.getPosition());
-                // map.panBy(0, -500);
-            })
-            .catch((error) => {
-                console.error("uh oh error: " + error);
-            });
-    });
-
-    markers.push(marker);
-  }
-
+ 
 }
