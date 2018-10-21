@@ -110,5 +110,28 @@ namespace TapNap.Controllers
 
             return Json(posts);
         }
+
+        public async Task<IActionResult> AddSelf(int id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var bed = await _context.Beds.FindAsync(id);
+            if (bed == null)
+                return NotFound();
+
+            if (await _context.Renteds.Where(r => r.BedID == id && r.UserID == user.Id).AnyAsync())
+                return Ok();
+
+            var reserve = new Rented {Bed = bed, User = user, StartTime = DateTime.Now, EndTime = DateTime.Now.AddHours(1)};
+            _context.Add(reserve);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }

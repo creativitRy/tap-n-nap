@@ -1,0 +1,254 @@
+@model List<dynamic>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link href="styles.css" rel="stylesheet">
+    <!-- <link href="mapStyles.css" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/> -->
+    <!-- <link rel="stylesheet" type="text/css" href="slicktheme.css"/>
+    <link rel="stylesheet" type="text/css" href="rateit-js/rateit.css"/> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.7/dist/sweetalert2.all.min.js"></script>
+
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+
+    <div class="navbar-background">
+        <div class="navbar-top-segment">
+            <div class="segment left-segment">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="logo">Tap N' Nap</a>
+                <div class="segment-item"><a asp-area="" asp-controller="Reservation" asp-action="Index">Current Naps</a></div>
+                <!-- <div class="segment-item"><a asp-area="" asp-controller="Home" asp-action="Contact">Perspective</a></div> -->
+                <div class="segment-item">
+                    <input type="text" class="searchbar" id="searchbar-top" placeholder="Search for a bed">
+                </div>
+            </div>
+            <div class="segment right-segment">
+                <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Register">Register</a></div>
+                <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Login">Login</a></div>
+            </div>
+        </div>
+
+        <div class="hide" id="hide">
+            <div class="navigation-mobile-screen navigation-mobile-screen-side">
+                <div class="segment-item mobile-nav-first"><a asp-area="" asp-controller="Home" asp-action="About">Current Naps</a></div>
+                <!-- <div class="segment-item"><a asp-area="" asp-controller="Home" asp-action="Contact">Perspective</a></div> -->
+                <div class="segment-item">
+                    <input type="text" class="searchbar" id="searchbar-mobile" placeholder="Search for a bed">
+                </div>
+                <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Register">Register</a></div>
+                <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Login">Login</a></div>
+            </div>
+        </div>
+
+        <div class="navbar-mobile-segment">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="logo">Tap N' Nap</a>
+            <img src="imageAssets/hamburger.svg" id="navbar-hamburger">
+        </div>
+    </div>
+
+    <div class="reservations">
+        <div class="reservations-title">
+            Your upcoming adventures...
+            <div class="reservations-title-underline">
+            </div>
+        </div>
+        @{
+            if (Model == null || Model.Count <= 0)
+            {
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+            }
+            else
+            {
+                foreach (var reservation in Model)
+                {
+                    <div class="reservation-card">
+                        <img src="@reservation.picture" class="reservation-image">
+                        <div class="reservation-card-address">@reservation.address</div>
+                        <div class="reservation-card-time">@reservation.time</div>
+                        <div class="reservation-card-contact">
+                            <div>Contact Host</div>
+                            <input type="hidden" value="@reservation.phone">
+                            <input type="hidden" value="@reservation.id">
+                        </div>
+                    </div>
+                }
+            }
+        }
+    </div>
+
+
+    <div class="footer">
+    </div>
+
+
+
+
+
+
+
+
+    <!-- <script src="mapLoad.js"></script> -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxYh2EnW1d4ldOte-dAp9DVJYL1UVAGw4&callback=initMap&libraries=places" async defer></script> -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
+    <script type="text/javascript" src="rateit-js/jquery.rateit.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            document.getElementById("navbar-hamburger").addEventListener('click', toggle);
+
+            // $('html, body').on('touchstart touchmove', function(e){
+            //     //prevent native touch activity like scrolling
+            //     e.preventDefault();
+            //  });
+            // document.addEventListener('touchmove', this._preventDefault, { passive: false });
+
+            let cards = document.getElementsByClassName("reservation-card-contact");
+            for (let card of cards) {
+                card.addEventListener("click", function() { showPhoneNumber(card.childNodes) });
+            }
+
+        });
+
+        function showPhoneNumber(children) {
+            let number = children[1];
+            let id = children[2];
+            console.log("Expected number: " + number);
+            console.log("Expected id: " + id);
+
+            if (!number) {
+                number = "111-222-3333";
+            }
+
+            swal({
+                type: 'info',
+                title: "<span class='sweet-font'>Host's Phone Number</span>",
+                html: "<span class='sweet-font'>" + number + "</span>",
+                confirmButtonText: "Awesome, got it!"
+            });
+
+            fetch('@Url.Action("AddSelf", "Api")' + `?id=${id}`)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                // Do nothing
+                // console.log(JSON.stringify(myJson));
+            });
+        }
+
+        function toggle(event) {
+            if (document.getElementsByClassName("navigation-mobile-screen")[0].classList.contains("navigation-mobile-screen-side")) {
+                document.getElementById("hide").style.position = "static";
+                setTimeout(function () {
+                    document.getElementsByClassName("navigation-mobile-screen")[0].classList.remove("navigation-mobile-screen-side");
+                }, 1);
+            }
+            else {
+                document.getElementsByClassName("navigation-mobile-screen")[0].classList.add("navigation-mobile-screen-side");
+                setTimeout(function () {
+                    document.getElementById("hide").style.position = "relative";
+                }, 250);
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+#map {
+  width: 100%;
+  height: calc(100vh - 100px);
+}
+a[href^="http://maps.google.com/maps"] {
+  display:none !important
+}
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+  display:none;
+}
+.gmnoprint div {
+  background:none !important;
+}
+.map-control-panel {
+  display: flex;
+  height: 40px;
+  width: 100px;
+  background: #FFFFFF;
+  box-shadow: 0px 8px 8px rgba(54, 66, 75, 0.15), 0px 2px 2px rgba(54, 66, 75, 0.09);
+  border-radius: 3px;
+  justify-content: space-evenly;
+  /* color: black; */
+  align-items: center;
+  margin-bottom: 30px;
+  margin-right: 100px;
+  border-bottom: 1px solid #3f3f3f;
+  /* ^ This looks very good :) */
+}
+
+@media only screen and (max-width: 420px) {
+  .map-control-panel {
+    margin-right: 30px;
+  }
+}

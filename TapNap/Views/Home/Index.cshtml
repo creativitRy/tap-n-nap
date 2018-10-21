@@ -1,94 +1,231 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    Layout = null;
 }
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img src="~/images/banner1.svg" alt="ASP.NET" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    Learn how to build ASP.NET apps that can run anywhere.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="~/images/banner2.svg" alt="Visual Studio" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    There are powerful new features in Visual Studio for building modern web apps.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="~/images/banner3.svg" alt="Microsoft Azure" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    Learn how Microsoft's Azure cloud platform allows you to build, deploy, and scale web apps.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525027&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link href="styles.css" rel="stylesheet">
+    <link href="mapStyles.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="slicktheme.css" />
+    <link rel="stylesheet" type="text/css" href="rateit-js/rateit.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.7/dist/sweetalert2.all.min.js"></script>
 
-<div class="row">
-    <div class="col-md-3">
-        <h2>Application uses</h2>
-        <ul>
-            <li>Sample pages using ASP.NET Core MVC</li>
-            <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
-        </ul>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+
+    <div class="navbar-background">
+        <div class="navbar-top-segment">
+            <div class="segment left-segment">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="logo">Tap N' Nap</a>
+                <div class="segment-item"><a asp-area="" asp-controller="Reservation" asp-action="Index">Current Naps</a></div>
+                <!-- <div class="segment-item"><a asp-area="" asp-controller="Home" asp-action="Contact">Perspective</a></div> -->
+                <div class="segment-item">
+                    <input type="text" class="searchbar" id="searchbar-top" placeholder="Search for a bed">
+                </div>
+                <div id="add-listing" class="segment-item add-listing-button">
+                    <div>
+                        ADD LISTING
+                    </div>
+                </div>
+            </div>
+            <div class="segment right-segment">
+                <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Register">Register</a></div>
+                <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Login">Login</a></div>
+            </div>
+        </div>
+
+        <div class="navbar-mobile-segment">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="logo">Tap N' Nap</a>
+            <img src="imageAssets/hamburger.svg" id="navbar-hamburger">
+        </div>
     </div>
-    <div class="col-md-3">
-        <h2>How to</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398600">Add a Controller and View</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
-        </ul>
+
+    <div class="hide" id="hide">
+        <div class="navigation-mobile-screen navigation-mobile-screen-side">
+            <div class="segment-item mobile-nav-first"><a asp-area="" asp-controller="Home" asp-action="About">Current Naps</a></div>
+            <!-- <div class="segment-item"><a asp-area="" asp-controller="Home" asp-action="Contact">Perspective</a></div> -->
+            <div class="segment-item">
+                <input type="text" class="searchbar" id="searchbar-mobile" placeholder="Search for a bed">
+            </div>
+            <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Register">Register</a></div>
+            <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Login">Login</a></div>
+        </div>
     </div>
-    <div class="col-md-3">
-        <h2>Overview</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
-        </ul>
+
+    <div class="map-container">
+        <div id="map"></div>
+        <div class="listing-information">
+            <img id="listing-exit" src="imageAssets/close-button.png">
+            <div class="slider">
+                <div>
+                    <div class="slider-image-wrapper">
+                        <img class="slider-image" src="imageAssets/bed_example.jpg">
+                    </div>
+                </div>
+                <div>
+                    <div class="slider-image-wrapper">
+                        <img class="slider-image" src="imageAssets/bed_example.jpg">
+                    </div>
+                </div>
+                <div>
+                    <div class="slider-image-wrapper">
+                        <img class="slider-image" src="imageAssets/bed_example.jpg">
+                    </div>
+                </div>
+                <div>
+                    <div class="slider-image-wrapper">
+                        <img class="slider-image" src="imageAssets/bed_example.jpg">
+                    </div>
+                </div>
+                <div>
+                    <div class="slider-image-wrapper">
+                        <img class="slider-image" src="imageAssets/bed_example.jpg">
+                    </div>
+                </div>
+            </div>
+            <div class="listing-information-text">
+                <div class="listing-address">
+                    710 East 21st Street, Austin, Texas
+                </div>
+                <div class="rateit" data-rateit-mode="font" data-rateit-readonly="true" data-rateit-step="0.1" data-rateit-value="4.3"></div>
+                <div class="rating-text">
+                    Overall Rating: 4.3
+                </div>
+                <div class="listing-title">
+                    Private Bedroom
+                </div>
+                <div class="listing-description">
+                    Experience calm in this bright, private apartment perched in the hills with awe-inspiring views. Enjoy yourself, or others, on the luxurious, 2000-sheet silk sheets covering a genuine Moroccan cotton mattress.
+                </div>
+                <div class="listing-pricing">
+                    <span class="fancy-pricing-text">$10</span> / HOUR
+                </div>
+                <div class="book-button" id="book-button">
+                    <div>
+                        RESERVE NOW
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-3">
-        <h2>Run &amp; Deploy</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517851">Run your app</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
-        </ul>
+
+    <form style="visibility: hidden" action="/offers" method="post" id="add-listing-form">
+        <input id="latitude" type="hidden">
+        <input id="longitude" type="hidden">
+        <input id="title" type="hidden">
+        <input id="price" type="hidden">
+        <input id="rating" type="hidden">
+    </form>
+
+    <div class="footer">
     </div>
-</div>
+
+
+
+
+
+
+
+
+    <script src="mapLoad.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxYh2EnW1d4ldOte-dAp9DVJYL1UVAGw4&callback=initMap&libraries=places"
+            async defer></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script type="text/javascript" src="rateit-js/jquery.rateit.js"></script>
+
+    <script type="text/javascript">
+        function verify() {
+            swal({
+                type: 'success',
+                title: "<span class='sweet-font'>Listing Successfully Created!</span>",
+                html: "<span class='sweet-font'>Be sure to edit your listing to include all relevant details!</span>",
+                confirmButtonText: "Awesome, got it!"
+            });
+            return true;
+        }
+
+        $(document).ready(function () {
+
+            document.getElementById("listing-exit").addEventListener('click', hideInfo);
+            document.getElementById("navbar-hamburger").addEventListener('click', toggle);
+            document.getElementById("book-button").addEventListener('click', showPhoneNumber);
+            document.getElementById("add-listing").addEventListener('click', addListing);
+
+            $('.slider').slick({
+                infinite: true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: true,
+            });
+
+        });
+
+        function addListing() {
+            swal({
+                title: '<span class="sweet-font-form">Finish adding your listing!</span>',
+                html:
+                    '<input id="form-title" class="swal2-input" placeholder="Property Title">' +
+                    '<input id="form-price" class="swal2-input" placeholder="Property Pricing">',
+                confirmButtonText: "Add my room!",
+                focusConfirm: false,
+                preConfirm: () => {
+                    let areaObject = map.getBounds();
+                    document.getElementById("latitude").value = (areaObject.f.b + areaObject.f.f) / 2;
+                    document.getElementById("longitude").value = (areaObject.b.b + areaObject.b.f) / 2;
+                    document.getElementById("title").value = document.getElementById("form-title").value;
+                    document.getElementById("price").value = document.getElementById("form-price").value;
+                    document.getElementById("rating").value = Math.floor((Math.random() * 3) + 2) + 0.1 * Math.floor(Math.random() * 11);
+
+                    // document.getElementById("add-listing-form").submit();
+
+                    // TODO: FORM SUBMISSION LOGIC
+
+
+                    // console.log(document.getElementById("latitude").value);
+                    // console.log(document.getElementById("longitude").value);
+                    // console.log(document.getElementById("title").value);
+                    // console.log(document.getElementById("price").value);
+                    // console.log(document.getElementById("rating").value);
+                }
+            });
+        }
+
+        function showPhoneNumber() {
+            swal({
+                type: 'info',
+                title: "<span class='sweet-font'>Host's Phone Number</span>",
+                html: "<span class='sweet-font'>(111)-222-3333</span>",
+                confirmButtonText: "Awesome, got it!"
+            });
+
+            hideInfo();
+        }
+
+        function hideInfo() {
+            document.getElementById("listing-exit").parentElement.classList.remove("show-listing-information");
+        }
+
+        function toggle(event) {
+            if (document.getElementsByClassName("navigation-mobile-screen")[0].classList.contains("navigation-mobile-screen-side")) {
+                document.getElementById("hide").style.position = "static";
+                setTimeout(function () {
+                    document.getElementsByClassName("navigation-mobile-screen")[0].classList.remove("navigation-mobile-screen-side");
+                }, 1);
+            }
+            else {
+                document.getElementsByClassName("navigation-mobile-screen")[0].classList.add("navigation-mobile-screen-side");
+                setTimeout(function () {
+                    document.getElementById("hide").style.position = "relative";
+                }, 250);
+            }
+        }
+    </script>
+
+</body>
+</html>

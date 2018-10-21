@@ -75,37 +75,42 @@ namespace TapNap.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(BedModel bed)
-        {
-            var newBed = new Bed() {Address = bed.Address, Description = bed.Description, PricePerHour = bed.Price};
+        public async Task<IActionResult> Create(Bed bed)
+        {   
+            var rand = new Random();
+            var files = Directory.GetFiles("wwwroot/imageAssets/beds", "*.jpg");
+            var src = files[rand.Next(files.Length)];
+            var pic = new Picture() { Bed = bed, Src= src.Substring(8) };
+            bed.Pictures = new[] {pic};
+
             if (ModelState.IsValid)
             {
-                _context.Add(newBed);
+                _context.Add(bed);
                 await _context.SaveChangesAsync();
-                var pictures = new List<Picture>();
-                foreach (var file in bed.Files)
-                {
-                    var newPicture = new Picture() { Bed = newBed };
-                    var stream = file.OpenReadStream();
-                    var form = new MultipartFormDataContent();
-                    var content = new StreamContent(stream);
-                    form.Add(content);
-                    var response = await Client.PostAsJsonAsync("image", form);
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    var details = JObject.Parse(responseContent);
-                    var temp = details["data"]["link"];
-                    //TODO: might be broken
-                    newPicture.Src = (string)temp;
-                    pictures.Add(newPicture);
-                }
-
-                _context.AddRange(pictures);
-                await _context.SaveChangesAsync();
+//                var pictures = new List<Picture>();
+//                foreach (var file in bed.Files)
+//                {
+//                    var newPicture = new Picture() { Bed = newBed };
+//                    var stream = file.OpenReadStream();
+//                    var form = new MultipartFormDataContent();
+//                    var content = new StreamContent(stream);
+//                    form.Add(content);
+//                    var response = await Client.PostAsJsonAsync("image", form);
+//                    var responseContent = await response.Content.ReadAsStringAsync();
+//                    var details = JObject.Parse(responseContent);
+//                    var temp = details["data"]["link"];
+//                    //TODO: might be broken
+//                    newPicture.Src = (string)temp;
+//                    pictures.Add(newPicture);
+//                }
+//
+//                _context.AddRange(pictures);
+//                await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }
             
-            return View(newBed);
+            return View(bed);
         }
 
         // GET: Beds/Edit/5
@@ -121,6 +126,9 @@ namespace TapNap.Controllers
             {
                 return NotFound();
             }
+
+
+
             return View(bed);
         }
 
