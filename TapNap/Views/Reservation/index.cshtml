@@ -1,3 +1,4 @@
+@model List<dynamic>
 @{
     Layout = null;
 }
@@ -21,7 +22,7 @@
         <div class="navbar-top-segment">
             <div class="segment left-segment">
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="logo">Tap N' Nap</a>
-                <div class="segment-item"><a asp-area="" asp-controller="Home" asp-action="About">Current Naps</a></div>
+                <div class="segment-item"><a asp-area="" asp-controller="Reservation" asp-action="Index">Current Naps</a></div>
                 <!-- <div class="segment-item"><a asp-area="" asp-controller="Home" asp-action="Contact">Perspective</a></div> -->
                 <div class="segment-item">
                     <input type="text" class="searchbar" id="searchbar-top" placeholder="Search for a bed">
@@ -54,87 +55,120 @@
     <div class="reservations">
         <div class="reservations-title">
             Your upcoming adventures...
-        </div>
-        <div class="reservation-card">
-            <img src="imageAssets/bed_example.jpg" class="reservation-image">
-            <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
-            <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
-            <div class="reservation-card-contact">
-                <div>Contact Host</div>
+            <div class="reservations-title-underline">
             </div>
         </div>
-        <div class="reservation-card">
-            <img src="imageAssets/bed_example.jpg" class="reservation-image">
-            <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
-            <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
-            <div class="reservation-card-contact">
-                <div>Contact Host</div>
-            </div>
-        </div>
-        <div class="reservation-card">
-            <img src="imageAssets/bed_example.jpg" class="reservation-image">
-            <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
-            <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
-            <div class="reservation-card-contact">
-                <div>Contact Host</div>
-            </div>
-        </div>
-        <div class="reservation-card">
-            <img src="imageAssets/bed_example.jpg" class="reservation-image">
-            <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
-            <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
-            <div class="reservation-card-contact">
-                <div>Contact Host</div>
-            </div>
-        </div>
-        <div class="reservation-card">
-            <img src="imageAssets/bed_example.jpg" class="reservation-image">
-            <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
-            <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
-            <div class="reservation-card-contact">
-                <div>Contact Host</div>
-            </div>
-        </div>
-        <div class="reservation-card">
-            <img src="imageAssets/bed_example.jpg" class="reservation-image">
-            <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
-            <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
-            <div class="reservation-card-contact">
-                <div>Contact Host</div>
-            </div>
-        </div>
-        <div class="reservation-card">
-            <img src="imageAssets/bed_example.jpg" class="reservation-image">
-            <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
-            <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
-            <div class="reservation-card-contact">
-                <div>Contact Host</div>
-            </div>
-        </div>
-        <div class="reservation-card">
-            <img src="imageAssets/bed_example.jpg" class="reservation-image">
-            <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
-            <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
-            <div class="reservation-card-contact">
-                <div>Contact Host</div>
-            </div>
-        </div>
-        <div class="reservation-card">
-            <img src="imageAssets/bed_example.jpg" class="reservation-image">
-            <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
-            <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
-            <div class="reservation-card-contact">
-                <div>Contact Host</div>
-            </div>
-        </div>
-        <div class="reservation-card">
-            <img src="imageAssets/bed_example.jpg" class="reservation-image">
-            <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
-            <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
-            <div class="reservation-card-contact">
-                <div>Contact Host</div>
-            </div>
-        </div>
+        @{
+            if (Model == null || Model.Count <= 0)
+            {
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+                <div class="reservation-card">
+                    <img src="imageAssets/bed_example.jpg" class="reservation-image">
+                    <div class="reservation-card-address">710 East 21st Street<br>Austin, Texas</div>
+                    <div class="reservation-card-time">November 17th, 2018<br>3PM - 6PM</div>
+                    <div class="reservation-card-contact">
+                        <div>Contact Host</div>
+                        <input type="hidden" value="111-222-3333">
+                    </div>
+                </div>
+            }
+            else
+            {
+                foreach (var reservation in Model)
+                {
+                    <div class="reservation-card">
+                        <img src="@reservation.picture" class="reservation-image">
+                        <div class="reservation-card-address">@reservation.address</div>
+                        <div class="reservation-card-time">@reservation.time</div>
+                        <div class="reservation-card-contact">
+                            <div>Contact Host</div>
+                            <input type="hidden" value="@reservation.phone">
+                            <input type="hidden" value="@reservation.id">
+                        </div>
+                    </div>
+                }
+            }
+        }
     </div>
 
 
@@ -156,7 +190,7 @@
     <script type="text/javascript" src="rateit-js/jquery.rateit.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
 
             document.getElementById("navbar-hamburger").addEventListener('click', toggle);
 
@@ -168,17 +202,35 @@
 
             let cards = document.getElementsByClassName("reservation-card-contact");
             for (let card of cards) {
-                card.addEventListener("click", showPhoneNumber);
+                card.addEventListener("click", function() { showPhoneNumber(card.childNodes) });
             }
 
         });
 
-        function showPhoneNumber() {
+        function showPhoneNumber(children) {
+            let number = children[1];
+            let id = children[2];
+            console.log("Expected number: " + number);
+            console.log("Expected id: " + id);
+
+            if (!number) {
+                number = "111-222-3333";
+            }
+
             swal({
                 type: 'info',
                 title: "<span class='sweet-font'>Host's Phone Number</span>",
-                html: "<span class='sweet-font'>(111)-222-3333</span>",
+                html: "<span class='sweet-font'>" + number + "</span>",
                 confirmButtonText: "Awesome, got it!"
+            });
+
+            fetch('@Url.Action("AddSelf", "Api")' + `?id=${id}`)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                // Do nothing
+                // console.log(JSON.stringify(myJson));
             });
         }
 

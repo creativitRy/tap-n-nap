@@ -1,4 +1,5 @@
 var map;
+var bounds;
 let changed = false;
 var styleArray = [
     {
@@ -337,7 +338,7 @@ function initMap() {
     }
 
     // For each place, get the icon, name and location.
-    var bounds = new google.maps.LatLngBounds();
+    bounds = new google.maps.LatLngBounds();
     places.forEach(function(place) {
       if (!place.geometry) {
         console.log("Returned place contains no geometry");

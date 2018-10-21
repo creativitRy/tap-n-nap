@@ -11,6 +11,10 @@ body {
   overflow: hidden;
   position: relative;
 }
+a {
+    color: black;
+    text-decoration: none;
+}
 
 /* Navigation bar */
 .navbar-background {
@@ -231,6 +235,19 @@ body {
   text-align: left;
   margin-top: 200px;
   margin-bottom: 50px;
+  margin-left: 50px;
+}
+.reservations-title-underline {
+  margin-top: 10px;
+  width: 100%;
+  height: 3px;
+  background: blue;
+}
+.offerings-title-underline {
+  margin-top: 10px;
+  width: 100%;
+  height: 3px;
+  background: red;
 }
 .reservation-card {
   width: 300px;
@@ -289,6 +306,9 @@ body {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
+.offering-card-contact {
+  background: #ffb219;
+}
 .reservation-card-contact:hover {
   cursor: pointer;
 }
@@ -296,6 +316,10 @@ body {
 /* SweetAlert */
 .sweet-font {
   font-size: 20px;
+  font-family: 'PT Sans', sans-serif;
+}
+.sweet-font-form {
+  font-size: 26px;
   font-family: 'PT Sans', sans-serif;
 }
 
@@ -425,5 +449,9 @@ body {
     text-align: left;
     margin-top: 25px;
     margin-bottom: -10px;
+    margin-left: 0px;
+  }
+  .reservations-title-underline {
+    height: 2px;
   }
 }

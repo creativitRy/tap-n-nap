@@ -5,116 +5,124 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<link href="styles.css" rel="stylesheet">
-<link href="mapStyles.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<link rel="stylesheet" type="text/css" href="slicktheme.css"/>
-<link rel="stylesheet" type="text/css" href="rateit-js/rateit.css"/>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.7/dist/sweetalert2.all.min.js"></script>
+    <link href="styles.css" rel="stylesheet">
+    <link href="mapStyles.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="slicktheme.css" />
+    <link rel="stylesheet" type="text/css" href="rateit-js/rateit.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.7/dist/sweetalert2.all.min.js"></script>
 
-<meta content="text/html; charset=UTF-8" http-equiv="content-type">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
 
-<div class="navbar-background">
-  <div class="navbar-top-segment">
-    <div class="segment left-segment">
-      <a asp-area="" asp-controller="Home" asp-action="Index" class="logo">Tap N' Nap</a>
-      <div class="segment-item"><a asp-area="" asp-controller="Home" asp-action="About">Current Naps</a></div>
-      <!-- <div class="segment-item"><a asp-area="" asp-controller="Home" asp-action="Contact">Perspective</a></div> -->
-      <div class="segment-item">
-        <input type="text" class="searchbar" id="searchbar-top" placeholder="Search for a bed">
-      </div>
-      <div class="segment-item add-listing-button">
-        <div>
-          ADD LISTING
+    <div class="navbar-background">
+        <div class="navbar-top-segment">
+            <div class="segment left-segment">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="logo">Tap N' Nap</a>
+                <div class="segment-item"><a asp-area="" asp-controller="Reservation" asp-action="Index">Current Naps</a></div>
+                <!-- <div class="segment-item"><a asp-area="" asp-controller="Home" asp-action="Contact">Perspective</a></div> -->
+                <div class="segment-item">
+                    <input type="text" class="searchbar" id="searchbar-top" placeholder="Search for a bed">
+                </div>
+                <div id="add-listing" class="segment-item add-listing-button">
+                    <div>
+                        ADD LISTING
+                    </div>
+                </div>
+            </div>
+            <div class="segment right-segment">
+                <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Register">Register</a></div>
+                <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Login">Login</a></div>
+            </div>
         </div>
-      </div>
+
+        <div class="navbar-mobile-segment">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="logo">Tap N' Nap</a>
+            <img src="imageAssets/hamburger.svg" id="navbar-hamburger">
+        </div>
     </div>
-    <div class="segment right-segment">
-      <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Register">Register</a></div>
-      <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Login">Login</a></div>
+
+    <div class="hide" id="hide">
+        <div class="navigation-mobile-screen navigation-mobile-screen-side">
+            <div class="segment-item mobile-nav-first"><a asp-area="" asp-controller="Home" asp-action="About">Current Naps</a></div>
+            <!-- <div class="segment-item"><a asp-area="" asp-controller="Home" asp-action="Contact">Perspective</a></div> -->
+            <div class="segment-item">
+                <input type="text" class="searchbar" id="searchbar-mobile" placeholder="Search for a bed">
+            </div>
+            <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Register">Register</a></div>
+            <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Login">Login</a></div>
+        </div>
     </div>
-  </div>
 
-  <div class="navbar-mobile-segment">
-    <a asp-area="" asp-controller="Home" asp-action="Index" class="logo">Tap N' Nap</a>
-    <img src="imageAssets/hamburger.svg" id="navbar-hamburger">
-  </div>
-</div>
-
-<div class="hide" id="hide">
-  <div class="navigation-mobile-screen navigation-mobile-screen-side">
-    <div class="segment-item mobile-nav-first"><a asp-area="" asp-controller="Home" asp-action="About">Current Naps</a></div>
-    <!-- <div class="segment-item"><a asp-area="" asp-controller="Home" asp-action="Contact">Perspective</a></div> -->
-    <div class="segment-item">
-      <input type="text" class="searchbar" id="searchbar-mobile" placeholder="Search for a bed">
+    <div class="map-container">
+        <div id="map"></div>
+        <div class="listing-information">
+            <img id="listing-exit" src="imageAssets/close-button.png">
+            <div class="slider">
+                <div>
+                    <div class="slider-image-wrapper">
+                        <img class="slider-image" src="imageAssets/bed_example.jpg">
+                    </div>
+                </div>
+                <div>
+                    <div class="slider-image-wrapper">
+                        <img class="slider-image" src="imageAssets/bed_example.jpg">
+                    </div>
+                </div>
+                <div>
+                    <div class="slider-image-wrapper">
+                        <img class="slider-image" src="imageAssets/bed_example.jpg">
+                    </div>
+                </div>
+                <div>
+                    <div class="slider-image-wrapper">
+                        <img class="slider-image" src="imageAssets/bed_example.jpg">
+                    </div>
+                </div>
+                <div>
+                    <div class="slider-image-wrapper">
+                        <img class="slider-image" src="imageAssets/bed_example.jpg">
+                    </div>
+                </div>
+            </div>
+            <div class="listing-information-text">
+                <div class="listing-address">
+                    710 East 21st Street, Austin, Texas
+                </div>
+                <div class="rateit" data-rateit-mode="font" data-rateit-readonly="true" data-rateit-step="0.1" data-rateit-value="4.3"></div>
+                <div class="rating-text">
+                    Overall Rating: 4.3
+                </div>
+                <div class="listing-title">
+                    Private Bedroom
+                </div>
+                <div class="listing-description">
+                    Experience calm in this bright, private apartment perched in the hills with awe-inspiring views. Enjoy yourself, or others, on the luxurious, 2000-sheet silk sheets covering a genuine Moroccan cotton mattress.
+                </div>
+                <div class="listing-pricing">
+                    <span class="fancy-pricing-text">$10</span> / HOUR
+                </div>
+                <div class="book-button" id="book-button">
+                    <div>
+                        RESERVE NOW
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Register">Register</a></div>
-    <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Login">Login</a></div>
-  </div>
-</div>
 
-<div class="map-container">
-  <div id="map"></div>
-  <div class="listing-information">
-    <img id="listing-exit" src="imageAssets/close-button.png">
-    <div class="slider">
-      <div>
-       <div class="slider-image-wrapper">
-          <img class="slider-image" src="imageAssets/bed_example.jpg">
-        </div>
-      </div>
-      <div>
-       <div class="slider-image-wrapper">
-          <img class="slider-image" src="imageAssets/bed_example.jpg">
-        </div>
-      </div>
-      <div>
-       <div class="slider-image-wrapper">
-          <img class="slider-image" src="imageAssets/bed_example.jpg">
-        </div>
-      </div>
-      <div>
-        <div class="slider-image-wrapper">
-          <img class="slider-image" src="imageAssets/bed_example.jpg">
-        </div>
-      </div>
-      <div>
-       <div class="slider-image-wrapper">
-          <img class="slider-image" src="imageAssets/bed_example.jpg">
-        </div>
-      </div>
+    <form style="visibility: hidden" action="/offers" method="post" id="add-listing-form">
+        <input id="latitude" type="hidden">
+        <input id="longitude" type="hidden">
+        <input id="title" type="hidden">
+        <input id="price" type="hidden">
+        <input id="rating" type="hidden">
+    </form>
+
+    <div class="footer">
     </div>
-    <div class="listing-information-text">
-      <div class="listing-address">
-        710 East 21st Street, Austin, Texas
-      </div>
-      <div class="rateit" data-rateit-mode="font" data-rateit-readonly="true" data-rateit-step="0.1" data-rateit-value="4.3"></div>
-      <div class="rating-text">
-        Overall Rating: 4.3
-      </div>
-      <div class="listing-title">
-        Private Bedroom
-      </div>
-      <div class="listing-description">
-        Experience calm in this bright, private apartment perched in the hills with awe-inspiring views. Enjoy yourself, or others, on the luxurious, 2000-sheet silk sheets covering a genuine Moroccan cotton mattress.
-      </div>
-      <div class="listing-pricing">
-        <span class="fancy-pricing-text">$10</span> / HOUR
-      </div>
-      <div class="book-button" id="book-button">
-        <div>
-          RESERVE NOW
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="footer">
-</div>
 
 
 
@@ -123,61 +131,101 @@
 
 
 
-<script src="mapLoad.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxYh2EnW1d4ldOte-dAp9DVJYL1UVAGw4&callback=initMap&libraries=places"
-async defer></script>
+    <script src="mapLoad.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxYh2EnW1d4ldOte-dAp9DVJYL1UVAGw4&callback=initMap&libraries=places"
+            async defer></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script type="text/javascript" src="rateit-js/jquery.rateit.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script type="text/javascript" src="rateit-js/jquery.rateit.js"></script>
 
-<script type="text/javascript">
- $(document).ready(function(){
+    <script type="text/javascript">
+        function verify() {
+            swal({
+                type: 'success',
+                title: "<span class='sweet-font'>Listing Successfully Created!</span>",
+                html: "<span class='sweet-font'>Be sure to edit your listing to include all relevant details!</span>",
+                confirmButtonText: "Awesome, got it!"
+            });
+            return true;
+        }
 
-   document.getElementById("listing-exit").addEventListener('click', hideInfo);
-   document.getElementById("navbar-hamburger").addEventListener('click', toggle);
-   document.getElementById("book-button").addEventListener('click', showPhoneNumber);
+        $(document).ready(function () {
+
+            document.getElementById("listing-exit").addEventListener('click', hideInfo);
+            document.getElementById("navbar-hamburger").addEventListener('click', toggle);
+            document.getElementById("book-button").addEventListener('click', showPhoneNumber);
+            document.getElementById("add-listing").addEventListener('click', addListing);
+
+            $('.slider').slick({
+                infinite: true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: true,
+            });
+
+        });
+
+        function addListing() {
+            swal({
+                title: '<span class="sweet-font-form">Finish adding your listing!</span>',
+                html:
+                    '<input id="form-title" class="swal2-input" placeholder="Property Title">' +
+                    '<input id="form-price" class="swal2-input" placeholder="Property Pricing">',
+                confirmButtonText: "Add my room!",
+                focusConfirm: false,
+                preConfirm: () => {
+                    let areaObject = map.getBounds();
+                    document.getElementById("latitude").value = (areaObject.f.b + areaObject.f.f) / 2;
+                    document.getElementById("longitude").value = (areaObject.b.b + areaObject.b.f) / 2;
+                    document.getElementById("title").value = document.getElementById("form-title").value;
+                    document.getElementById("price").value = document.getElementById("form-price").value;
+                    document.getElementById("rating").value = Math.floor((Math.random() * 3) + 2) + 0.1 * Math.floor(Math.random() * 11);
+
+                    // document.getElementById("add-listing-form").submit();
+
+                    // TODO: FORM SUBMISSION LOGIC
 
 
-   $('.slider').slick({
-     infinite: true,
-     slidesToShow: 1,
-     slidesToScroll: 1,
-     arrows: true,
-  });
+                    // console.log(document.getElementById("latitude").value);
+                    // console.log(document.getElementById("longitude").value);
+                    // console.log(document.getElementById("title").value);
+                    // console.log(document.getElementById("price").value);
+                    // console.log(document.getElementById("rating").value);
+                }
+            });
+        }
 
- });
+        function showPhoneNumber() {
+            swal({
+                type: 'info',
+                title: "<span class='sweet-font'>Host's Phone Number</span>",
+                html: "<span class='sweet-font'>(111)-222-3333</span>",
+                confirmButtonText: "Awesome, got it!"
+            });
 
-function showPhoneNumber() {
- swal({
-   type: 'info',
-   title: "<span class='sweet-font'>Host's Phone Number</span>",
-   html: "<span class='sweet-font'>(111)-222-3333</span>",
-   confirmButtonText: "Awesome, got it!"
- });
+            hideInfo();
+        }
 
- hideInfo();
-}
+        function hideInfo() {
+            document.getElementById("listing-exit").parentElement.classList.remove("show-listing-information");
+        }
 
-function hideInfo() {
-  document.getElementById("listing-exit").parentElement.classList.remove("show-listing-information");
-}
-
-function toggle(event) {
-  if (document.getElementsByClassName("navigation-mobile-screen")[0].classList.contains("navigation-mobile-screen-side")) {
-    document.getElementById("hide").style.position = "static";
-    setTimeout(function () {
-      document.getElementsByClassName("navigation-mobile-screen")[0].classList.remove("navigation-mobile-screen-side");
-    }, 1);
-  }
-  else {
-    document.getElementsByClassName("navigation-mobile-screen")[0].classList.add("navigation-mobile-screen-side");
-    setTimeout(function () {
-      document.getElementById("hide").style.position = "relative";
-    }, 250);
-  }
-}
-</script>
+        function toggle(event) {
+            if (document.getElementsByClassName("navigation-mobile-screen")[0].classList.contains("navigation-mobile-screen-side")) {
+                document.getElementById("hide").style.position = "static";
+                setTimeout(function () {
+                    document.getElementsByClassName("navigation-mobile-screen")[0].classList.remove("navigation-mobile-screen-side");
+                }, 1);
+            }
+            else {
+                document.getElementsByClassName("navigation-mobile-screen")[0].classList.add("navigation-mobile-screen-side");
+                setTimeout(function () {
+                    document.getElementById("hide").style.position = "relative";
+                }, 250);
+            }
+        }
+    </script>
 
 </body>
 </html>
