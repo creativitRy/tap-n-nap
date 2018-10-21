@@ -73,6 +73,17 @@ a {
   box-shadow: 5px 5px 8px 0px rgba(179,179,179,1);
   transform: translateY(-5px) translateX(2px);
 }
+.logout-button {
+    border: none;
+    background: red;
+    color: white;
+    width: 100px;
+    height: 20px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px 0px rgba(179,179,179,1);
+    cursor: pointer;
+    font-family: 'PT Sans', sans-serif;
+}
 
 /* Specific items on the navigation bar */
 .logo {
@@ -352,6 +363,7 @@ a {
   .logo {
     margin-left: 20px;
   }
+ 
 
   .navigation-mobile-screen {
     display: block;
@@ -387,7 +399,15 @@ a {
     margin-left: 0px;
     margin-right: 0px;
   }
-
+    .identity-hello {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    .logout-button {
+        width: 200px;
+        height: 40px;
+     font-size:18px;
+    }
 
   /* Information about a specific listing */
   .listing-information {

@@ -360,7 +360,8 @@ function initMap() {
       if (!place.geometry) {
         console.log("Returned place contains no geometry");
         return;
-      }
+        }
+        console.log(place);
 
       if (changed) {
         markers.pop().setMap(null);

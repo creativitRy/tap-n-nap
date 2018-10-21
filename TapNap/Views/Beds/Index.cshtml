@@ -35,13 +35,12 @@
 
         <div class="hide" id="hide">
             <div class="navigation-mobile-screen navigation-mobile-screen-side">
-                <div class="segment-item mobile-nav-first"><a asp-area="" asp-controller="Home" asp-action="About">Current Naps</a></div>
+                <div class="segment-item mobile-nav-first"><a asp-area="" asp-controller="Reservation" asp-action="Index">Current Naps</a></div>
                 <!-- <div class="segment-item"><a asp-area="" asp-controller="Home" asp-action="Contact">Perspective</a></div> -->
                 <div class="segment-item">
                     <input type="text" class="searchbar" id="searchbar-mobile" placeholder="Search for a bed">
                 </div>
-                <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Register">Register</a></div>
-                <div class="segment-item"><a asp-area="Identity" asp-page="/Account/Login">Login</a></div>
+                <partial name="_LoginPartial" />
             </div>
         </div>
 
@@ -143,7 +142,6 @@
 
 
     <!-- <script src="mapLoad.js"></script> -->
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxYh2EnW1d4ldOte-dAp9DVJYL1UVAGw4&callback=initMap&libraries=places" async defer></script> -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
