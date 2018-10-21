@@ -46,7 +46,7 @@ namespace TapNap.Controllers
                 .Where(b => b.BedID == id).Select(b => new
                 {
                     pictures = b.Pictures.Select(p => p.Src),
-                    rating = b.BedRatings.Select(r => r.Rating).Average(), // rating needed
+                    rating = b.BedRatings.Select(r => r.Rating).Average(), // at least 1 rating needed
                     price = b.PricePerHour,
                     address = b.Address,
                     description = b.Description,
@@ -74,7 +74,7 @@ namespace TapNap.Controllers
                 .Select(r => new{
                     picture = r.Bed.Pictures.First().Src,
                     address = r.Bed.Address,
-                    time = $"{r.StartTime} - {r.EndTime}",
+                    time = $"{r.StartTime:MMM dd h:mm tt} - {r.EndTime:MMM dd h:mm tt}",
                     phone = r.Bed.User.PhoneNumber
                 })
                 .ToListAsync();
@@ -92,7 +92,20 @@ namespace TapNap.Controllers
             }
 
             var posts = await _context.Beds
-                .Select(b => new { })
+                .Include(b => b.TimePeriods)
+                .Include(b => b.Renteds)
+                .Include(b => b.BedRatings)
+                .Include(b => b.Pictures)
+                .Where(b => b.UserID == user.Id)
+                .Select(b => new
+                {
+                    pictures = b.Pictures.Select(p => p.Src),
+                    //rating = b.BedRatings.Select(r => r.Rating).Average(), // at least 1 rating needed
+                    price = b.PricePerHour,
+                    address = b.Address,
+                    description = b.Description,
+                    times = b.TimePeriods.Select(t => $"{t.StartTime:MMM dd h:mm tt} - {t.EndTime:MMM dd h:mm tt}")
+                })
                 .ToListAsync();
 
             return Json(posts);
