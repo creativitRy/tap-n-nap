@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -25,10 +26,9 @@ namespace TapNap.Controllers
             Client = new HttpClient();
             Client.BaseAddress = new Uri("https://api.imgur.com/3/");
             Client.DefaultRequestHeaders.Accept.Clear();
-            Client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("clientId", Startup.ImgurAPI);
-
+//            Client.DefaultRequestHeaders.Accept.Add(
+//                new MediaTypeWithQualityHeaderValue("application/json"));
+            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Client-ID", Startup.ImgurAPI);
         }
 
         // GET: Beds
@@ -46,6 +46,7 @@ namespace TapNap.Controllers
             }
 
             var bed = await _context.Beds
+                .Include(b => b.Pictures)
                 .FirstOrDefaultAsync(m => m.BedID == id);
             if (bed == null)
             {
@@ -61,33 +62,50 @@ namespace TapNap.Controllers
             return View();
         }
 
+        public class BedModel
+        {
+            public string Address { get; set; }
+            public string Description { get; set; }
+            public decimal Price { get; set; }
+            public List<IFormFile> Files { get; set; }
+        }
+
         // POST: Beds/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Bed bed, List<IFormFile> files)
+        public async Task<IActionResult> Create(BedModel bed)
         {
+            var newBed = new Bed() {Address = bed.Address, Description = bed.Description, PricePerHour = bed.Price};
             if (ModelState.IsValid)
             {
-                _context.Add(bed);
+                _context.Add(newBed);
                 await _context.SaveChangesAsync();
-
-                var pictures = files.Select(f => new Picture(){Bed=bed, BedID=bed.BedID}).ToList();
-                for (int i = 0; i < pictures.Count; i++)
+                var pictures = new List<Picture>();
+                foreach (var file in bed.Files)
                 {
-                    var stream = files[i].OpenReadStream();
-                    var response = await Client.PostAsJsonAsync("image", stream);
+                    var newPicture = new Picture() { Bed = newBed };
+                    var stream = file.OpenReadStream();
+                    var form = new MultipartFormDataContent();
+                    var content = new StreamContent(stream);
+                    form.Add(content);
+                    var response = await Client.PostAsJsonAsync("image", form);
                     var responseContent = await response.Content.ReadAsStringAsync();
                     var details = JObject.Parse(responseContent);
                     var temp = details["data"]["link"];
                     //TODO: might be broken
-                    pictures[i].Src = (string) temp;
+                    newPicture.Src = (string)temp;
+                    pictures.Add(newPicture);
                 }
+
+                _context.AddRange(pictures);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             
-            return View(bed);
+            return View(newBed);
         }
 
         // GET: Beds/Edit/5

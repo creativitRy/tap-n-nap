@@ -41,6 +41,12 @@
         <dd>
             @Html.DisplayFor(model => model.PricePerHour)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pictures)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pictures.First().Src)
+        </dd>
     </dl>
 </div>
 <div>
