@@ -161,10 +161,10 @@
                 document.getElementById("longitude").value = (areaObject.b.b + areaObject.b.f) / 2;
                 document.getElementById("title").value = document.getElementById("form-title").value;
                 document.getElementById("price").value = document.getElementById("form-price").value;
-                document.getElementById("rating").value =
-                    Math.floor((Math.random() * 3) + 2) + 0.1 * Math.floor(Math.random() * 11);
+                document.getElementById("rating").value = Math.floor((Math.random() * 3) + 2) + 0.1 * Math.floor(Math.random() * 11);
 
-                document.getElementById("add-listing-form").submit();
+                   // TODO: Fix submission!!
+//                document.getElementById("add-listing-form").submit();
 //                $(function() {
 //                    $('#add-listing-form').submit(function(){
 //                        $.post('http://example.com/upload', function() {
@@ -173,7 +173,6 @@
 //                        return false;
 //                    });
 //                });
-
                 // TODO: FORM SUBMISSION LOGIC
 
 
@@ -182,6 +181,14 @@
                 // console.log(document.getElementById("title").value);
                 // console.log(document.getElementById("price").value);
                 // console.log(document.getElementById("rating").value);
+            }
+        }).then((result) => {
+            if (result.value) {
+                swal({
+                    type: 'success',
+                    title: "<span class='sweet-font'>Listing successfully added!</span>",
+                    confirmButtonText: "<a href='/beds'>Check out my listings!</a>"
+                });
             }
         });
     }

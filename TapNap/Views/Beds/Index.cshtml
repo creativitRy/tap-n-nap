@@ -187,6 +187,14 @@
                     // console.log(document.getElementById("start").value);
                     // console.log(document.getElementById("end").value);
                 }
+            }).then((result) => {
+                if (result.value) {
+                    swal({
+                        type: 'success',
+                        title: "<span class='sweet-font'>Listing successfully edited!</span>",
+                        confirmButtonText: "Alright!!</a>"
+                    });
+                }
             });
         }
 
