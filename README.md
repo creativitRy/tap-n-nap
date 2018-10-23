@@ -4,9 +4,8 @@
   <br>
 </h1>
 
-<h5 align="center">Web and Mobile Application built on ASP.NET core, Microsoft Azure, C#, HTML5, CSS3, and ES6.<br><br>Provides the ability to lease rooms for a few hours at a time, allowing opportunities for privacy and rest wherever you are.
+<h5 align="center">Web and Mobile Application built on ASP.NET core, Microsoft Azure, C#, HTML5, CSS3, and ES6.<br><br>Provides the ability to lease rooms for a few hours at a time, allowing opportunities for privacy and rest wherever you are. </h5>
 
-<br>
 <br>
 
 Looking for a place to nap? Looking for some convenient privacy?
