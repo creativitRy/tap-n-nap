@@ -1,4 +1,13 @@
-# Tap N Nap
+<h1 align="center">
+  <br>
+  Tap N Nap
+  <br>
+</h1>
+
+<h5 align="center">Web and Mobile Application built on ASP.NET core, Microsoft Azure, C#, HTML5, CSS3, and ES6.<br><br>Provides the ability to lease rooms for a few hours at a time, allowing opportunities for privacy and rest wherever you are.
+
+<br>
+<br>
 
 Looking for a place to nap? Looking for some convenient privacy?
 
@@ -44,3 +53,12 @@ Hopefully, we can integrate secure payments and chat systems between renters and
 ## Built with
 
 Google Maps, ASP .NET Core, C#, Bootstrap, jQuery, JavaScript, HTML, CSS, Microsoft Azure
+
+## Sample Images
+
+![Main Page (Mobile App)](https://raw.githubusercontent.com/creativitRy/tap-n-nap/master/Example%20Images/mobile1.png) <br>
+![Listing Details (Mobile)](https://raw.githubusercontent.com/creativitRy/tap-n-nap/master/Example%20Images/mobile2.png) <br> 
+![Future Activities (Mobile)](https://raw.githubusercontent.com/creativitRy/tap-n-nap/master/Example%20Images/mobile3.png) <br>
+![Current Listings (Mobile)](https://raw.githubusercontent.com/creativitRy/tap-n-nap/master/Example%20Images/mobile4.png) <br> 
+![Main Page (Web App)](https://raw.githubusercontent.com/creativitRy/tap-n-nap/master/Example%20Images/web1.png) <br>
+
